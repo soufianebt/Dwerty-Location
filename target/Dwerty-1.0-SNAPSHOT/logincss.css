@@ -1,0 +1,78 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 06-Jan-2021, 21:40:13
+    Author     : HP
+*/
+#email{
+  width: 60%;
+  height: 40px;
+  padding: 12px 20px;
+  margin-bottom:8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+  margin-left: 20%;
+    
+        
+}
+#msg-auth{
+     margin-top:8px;
+     margin-left: 0%;
+     color: orange;
+}
+#signup-link{
+     margin-top:15px;
+     margin-left: 38%;
+     color: activecaption;
+}
+#signup-link:hover{
+    color: #4285f4;
+}
+#password{
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+   margin-bottom:14px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#btn-connecter{
+    
+  background-color: #ffffff;
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+#btn-connecter:hover{
+    background-color:green;
+    color: white;
+    
+  
+}
+#h3-seconnecter{
+    color: #ccc;
+    margin-left: 43%;
+}
+.formlogin{
+    
+    margin-left: 25%;
+    margin-top: 250px;  
+    height: 200px;
+    width: 50%;
+}
+
+
