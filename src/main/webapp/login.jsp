@@ -7,11 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
-        <link rel=".stylesheet" href="WEB-INF/Style/logincss.css"/>
-    </head>
+<%
+    String Title = "login";
+%>
+<jsp:include page="Header.jsp"></jsp:include>
     <body>
         <div class="formlogin">
             
@@ -31,5 +30,6 @@
                         
             </form>
         </div>
+    <jsp:include page="footer.html"></jsp:include>
     </body>
 </html>

@@ -1,0 +1,121 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 08-Jan-2021, 09:57:46
+    Author     : HP
+*/
+
+#email{
+  width: 60%;
+  height: 40px;
+  padding: 12px 20px;
+  margin-bottom:8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+  margin-left: 20%;
+    
+        
+}
+#password{
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+   margin-bottom:14px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#nom{
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+   margin-bottom:14px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#prenom{
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+   margin-bottom:14px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#password{
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+   margin-bottom:14px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#telephone{
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+   margin-bottom:14px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#validepassword{
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+   margin-bottom:14px;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#btn-connecter{
+    
+  background-color: #ffffff;
+  width: 60%;
+  margin-left: 20%;
+  height: 40px;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+#btn-connecter:hover{
+    background-color:green;
+    color: white;
+  
+}
+#h3-seconnecter{
+    color: #ccc;
+    margin-left: 40%;
+}
+.inscri-type{
+    margin-left: 21%;
+    margin-bottom: 12px;
+}
+.formlogin{
+    margin-left: 25%;
+    margin-top: 150px;  
+    height: 500px;
+    width: 50%;
+        
+}
