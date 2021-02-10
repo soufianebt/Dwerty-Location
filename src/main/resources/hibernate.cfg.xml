@@ -6,14 +6,15 @@
 
         <property name = "hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">qwerty</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/tpjee?createDatabaseIfNotExist=true</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Dwerty?createDatabaseIfNotExist=true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <mapping class="com.dwerty.beans.User"/>
         <mapping class="com.dwerty.beans.UserSession"/>
+        <mapping class="com.dwerty.beans.User"/>
+        <mapping class="com.dwerty.beans.User"/>
     </session-factory>
 </hibernate-configuration>

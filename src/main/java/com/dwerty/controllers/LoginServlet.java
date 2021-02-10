@@ -11,10 +11,13 @@ import java.io.PrintWriter;
 import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+@WebServlet(value = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
     private GestionDAO gestionDAO;
@@ -112,6 +115,7 @@ public class LoginServlet extends HttpServlet {
 
     }
 
+    public void destroy(){}
     @Override
     public String getServletInfo() {
         return "Short description";
