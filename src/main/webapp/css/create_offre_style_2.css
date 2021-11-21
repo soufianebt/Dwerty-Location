@@ -1,0 +1,145 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 févr. 2021, 18:50:25
+    Author     : kh
+*/
+
+.form-offre-1 {
+
+    width: 60%;
+    height: 500px;
+    margin-left: 20%;
+    margin-top: 100px;
+    background-color: #FFFFFF;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.chambre-de-offre {
+    height: 30px;
+    margin-left: 20px;
+    margin-top: 50px;
+    width: 8%;
+    border-radius: 5px;
+}
+
+.lit-de-offre {
+    border-radius: 5px;
+    height: 30px;
+    margin-left: 20px;
+    width: 8%;
+    margin-top: 20px;
+
+
+}
+
+.prix-offre {
+    border-radius: 5px;
+    border: 0.5px solid;
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 26px;
+    width: 12%;
+}
+
+.date-offre {
+    margin-top: -10px;
+    margin-left: 20px;
+    width: 20%;
+
+}
+
+.chambre-double-de-offre {
+    height: 30px;
+    margin-left: 10px;
+    margin-top: 50px;
+    width: 8%;
+    border-radius: 5px;
+}
+
+.max-offre {
+    border-radius: 5px;
+    border: 0.5px solid;
+    height: 30px;
+    margin-top: 20px;
+    margin-left: 26px;
+    width: 8%;
+}
+
+.lbl-chambre {
+
+    margin-left: 15%;
+    font-size: 20px;
+}
+
+.lbl-lits {
+    font-size: 20px;
+    margin-top: 40px;
+    margin-left: 15%;
+}
+
+.lbl-prix {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.lbl-date {
+    font-size: 20px;
+    margin-top: 5%;
+    margin-left: 15%;
+
+}
+
+.lbl-chambre-double {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.lbl-max {
+    font-size: 20px;
+    margin-left: 15%;
+    margin-top: 30px;
+}
+
+.submet-2 {
+    border-radius: 15px;
+    width: 14%;
+    height: 30px;
+    margin-left: 71%;
+    margin-top: 50px;
+    border: 0px;
+
+}
+
+.ms {
+    font-size: 25px;
+    color: #007bff;
+    display: inline-block;
+    margin-left: 40%;
+    margin-top: 20px;
+
+
+}
+
+.submet-2:hover {
+    background-color: green;
+    background-color: green;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+
+
+}
+
+.message {
+    color: red;
+    font-size: 17px;
+    margin-left: 15%;
+    margin-top: -20px;
+}

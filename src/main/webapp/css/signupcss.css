@@ -1,0 +1,126 @@
+#email {
+    width: 60%;
+    height: 40px;
+    padding: 12px 20px;
+    margin-bottom: 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+    margin-left: 20%;
+
+
+}
+
+#password {
+    width: 60%;
+    margin-left: 20%;
+    height: 40px;
+    padding: 12px 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+
+#nom {
+    width: 60%;
+    margin-left: 20%;
+    height: 40px;
+    padding: 12px 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+
+#prenom {
+    width: 60%;
+    margin-left: 20%;
+    height: 40px;
+    padding: 12px 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+
+#password {
+    width: 60%;
+    margin-left: 20%;
+    height: 40px;
+    padding: 12px 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+
+#telephone {
+    width: 60%;
+    margin-left: 20%;
+    height: 40px;
+    padding: 12px 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+
+#validepassword {
+    width: 60%;
+    margin-left: 20%;
+    height: 40px;
+    padding: 12px 20px;
+    display: inline-block;
+    margin-bottom: 14px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+
+#btn-connecter {
+
+    background-color: #ffffff;
+    width: 60%;
+    margin-left: 20%;
+    height: 40px;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    box-sizing: border-box;
+}
+
+#btn-connecter:hover {
+    background-color: green;
+    color: white;
+
+}
+
+#h3-seconnecter {
+    color: #0056b3;
+    margin-left: 40%;
+    margin-top: -5px;
+}
+
+.inscri-type {
+    margin-left: 21%;
+    margin-bottom: 12px;
+}
+
+.formlogin {
+    margin-left: 25%;
+    margin-top: 150px;
+    height: 600px;
+    width: 50%;
+    margin-top: 50px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}

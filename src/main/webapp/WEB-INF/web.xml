@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.dwirty.controllers.LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CreateOffre</servlet-name>
+        <servlet-class>com.dwirty.controllers.CreateOffre</servlet-class>
+        <multipart-config>
+            <location>E:\Documents\assets\tmp\</location>
+            <max-file-size>10485760</max-file-size>
+            <!-- 10 Mo -->
+            <max-request-size>52428800</max-request-size>
+            <!-- 5 x 10 Mo -->
+            <file-size-threshold>1048576</file-size-threshold>
+            <!-- 1 Mo -->
+        </multipart-config>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeServlet</servlet-name>
+        <servlet-class>com.dwirty.controllers.HomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetaisOffre</servlet-name>
+        <servlet-class>com.dwirty.controllers.DetaisOffre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowOffres</servlet-name>
+        <servlet-class>com.dwirty.controllers.ShowOffres</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModifieOffre</servlet-name>
+        <servlet-class>com.dwirty.controllers.ModifieOffre</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+
+<servlet-mapping>
+    <servlet-name>HomeServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateOffre</servlet-name>
+        <url-pattern>/CreateOffre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetaisOffre</servlet-name>
+        <url-pattern>/DetaisOffre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowOffres</servlet-name>
+        <url-pattern>/ShowOffres</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModifieOffre</servlet-name>
+        <url-pattern>/ModifieOffre</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <data-source>
+        <name></name>
+    </data-source>
+</web-app>

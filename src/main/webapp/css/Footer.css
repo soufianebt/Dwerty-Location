@@ -1,0 +1,49 @@
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    border-radius: 200%;
+}
+
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+}
+
+.items-col {
+    color: #757575;
+    list-style: none;
+    white-space: pre-line;
+
+}
+
+.container.footer-container {
+    padding: 50px;
+}
+
+.logo-footer {
+    width: 150px;
+}
+
+.black-footer.img {
+    height: 12px;
+    width: 20px;
+}
+
+.black-footer.p {
+    color: blue;
+}
+
+p {
+    color: #3282b8;
+    text-align: center;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+    border-radius: 200%;
+}
+
+

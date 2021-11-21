@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 févr. 2021, 18:50:25
+    Author     : kh
+*/
+
+.form-offre-1 {
+
+    width: 60%;
+    height: 500px;
+    margin-left: 20%;
+    margin-top: 100px;
+    background-color: #FFFFFF;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.lbl-add-file {
+    margin-top: 50px;
+    margin-left: 15%;
+    font-size: 30px;
+    display: inline-block;
+
+}
+
+.lbl-add-file1 {
+    margin-top: 15px;
+    margin-left: 15%;
+    font-size: 20px;
+    display: inline-block;
+
+}
+
+.lbl-add-file2 {
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-left: 15%;
+}
+
+.lbl-add-file3 {
+    display: inline-block;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-left: 15%;
+}
+
+.submet-3 {
+    border-radius: 15px;
+    width: 14%;
+    height: 30px;
+    margin-left: 71%;
+    margin-top: 50px;
+    border: 0px;
+
+}
+
+.submet-3:hover {
+
+    background-color: green;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+
+
+}
+
+.message {
+    color: red;
+    font-size: 70px;
+    margin-left: 15%;
+    margin-top: -20px;
+}
+
+.ms {
+    font-size: 25px;
+    color: #007bff;
+    display: inline-block;
+    margin-left: 40%;
+    margin-top: 20px;
+
+
+}
