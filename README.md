@@ -111,15 +111,51 @@ Un visiteur non connecté voit une invitation à se connecter pour laisser un av
 
 | Composant | Technologie |
 | --- | --- |
-| Langage et compilation | Java 8 et Maven, application empaquetée en WAR |
+| Langage et compilation | Java 21 LTS (Eclipse Temurin) et Maven, application empaquetée en WAR |
 | Serveur web | Apache Tomcat 9, Servlet 4 avec `javax.servlet` |
 | Vues | JSP, JSTL, Bootstrap et feuilles CSS externes |
-| Persistance | Hibernate ORM 5.4 et MySQL 8.4 |
+| Persistance | Hibernate ORM 5.6.15.Final, Connector/J 9.7.0 et MySQL 8.4 |
+| Tests | JUnit 6.1.3 et Maven Surefire 3.6.0 |
 | Authentification | Sessions HTTP et BCrypt pour les nouveaux comptes |
 | Exécution locale | Dockerfile multi-stage et Docker Compose |
 
 Tomcat 10+ utilise `jakarta.servlet` et nécessite une migration : il ne remplace pas
 directement Tomcat 9 pour ce projet.
+
+### Compatibilité et mises à jour
+
+La compilation utilise `maven.compiler.release=21` et les deux étapes Docker
+utilisent un JDK 21. Maven Compiler 3.14.1 et Maven WAR 3.5.1 assurent la compilation
+et l'empaquetage. Byte Buddy 1.18.15 et JAXB Runtime 2.3.9 remplacent leurs anciennes
+versions transitives pour l'exécution sur les JDK récents.
+
+`hibernate-entitymanager` (fusionné dans Hibernate Core), Hibernate Validator et
+Javassist ont été retirés : les deux derniers n'étaient pas utilisés dans le code.
+Les API Servlet 4, JSP 2.3 et JSTL 1.2 restent dans leur dernière branche compatible
+avec `javax` et Tomcat 9.
+
+**Limite de support :** Hibernate 5.6 ne reçoit plus de maintenance communautaire.
+Cette mise à jour conserve `javax.persistence` ; passer à un Hibernate maintenu
+nécessite une migration distincte vers Jakarta Persistence et les API de requêtes
+correspondantes. Elle ne constitue pas une migration complète vers Jakarta EE.
+
+Les dépendances directes et transitives résolues ont été contrôlées via les avis
+GitHub lors de la mise à jour : aucun avis connu n'a été signalé pour les versions
+vérifiées. Ce résultat dépend de la couverture et de la date du scan ; il ne
+garantit pas l'absence de vulnérabilités et ne couvre pas l'image système Docker.
+
+### Exécuter les tests
+
+La construction Docker exécute les tests JUnit avant de créer le WAR. Pour isoler
+la compilation et relancer les tests sans installer Java ou Maven localement :
+
+```sh
+docker build --target build -t dwerty-location-build .
+docker run --rm dwerty-location-build mvn -B test
+```
+
+Les trois tests actuels couvrent l'association photo/annonce et l'image de repli.
+Ils ne remplacent pas les vérifications des parcours avec Tomcat et MySQL.
 
 ## Configuration Docker
 
