@@ -158,6 +158,15 @@ docker run --rm dwerty-location-build mvn -B test
 Les trois tests actuels couvrent l'association photo/annonce et l'image de repli.
 Ils ne remplacent pas les vérifications des parcours avec Tomcat et MySQL.
 
+### Intégration continue et publication
+
+GitHub Actions exécute `mvn -B verify` avec Java 25 pour chaque pull request vers
+`master` et chaque push sur `master`. Après le succès des tests, les pushes sur
+`master`, les tags `v*` et les lancements manuels construisent l'image Docker et la
+publient dans GitHub Container Registry (`ghcr.io/<propriétaire>/<dépôt>`), avec
+des tags de branche, de version et de commit. Le tag `latest` est également publié
+sur la branche par défaut. Les pull requests ne publient aucune image.
+
 ## Configuration Docker
 
 Le service `app` compile le WAR avec Maven avant de le déployer à la racine de
