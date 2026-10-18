@@ -111,7 +111,7 @@ Un visiteur non connecté voit une invitation à se connecter pour laisser un av
 
 | Composant | Technologie |
 | --- | --- |
-| Langage et compilation | Java 21 LTS (Eclipse Temurin) et Maven, application empaquetée en WAR |
+| Langage et compilation | Java 25 LTS (Eclipse Temurin) et Maven, application empaquetée en WAR |
 | Serveur web | Apache Tomcat 9, Servlet 4 avec `javax.servlet` |
 | Vues | JSP, JSTL, Bootstrap et feuilles CSS externes |
 | Persistance | Hibernate ORM 5.6.15.Final, Connector/J 9.7.0 et MySQL 8.4 |
@@ -124,8 +124,9 @@ directement Tomcat 9 pour ce projet.
 
 ### Compatibilité et mises à jour
 
-La compilation utilise `maven.compiler.release=21` et les deux étapes Docker
-utilisent un JDK 21. Maven Compiler 3.14.1 et Maven WAR 3.5.1 assurent la compilation
+La compilation utilise `maven.compiler.release=25`. L'image de construction utilise
+Maven 3.10.0 avec Eclipse Temurin 25 et l'image d'exécution utilise Tomcat 9 avec
+Eclipse Temurin JDK 25. Maven Compiler 3.14.1 et Maven WAR 3.5.1 assurent la compilation
 et l'empaquetage. Byte Buddy 1.18.15 et JAXB Runtime 2.3.9 remplacent leurs anciennes
 versions transitives pour l'exécution sur les JDK récents.
 
