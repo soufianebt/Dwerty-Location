@@ -1,0 +1,5 @@
+<footer class="site-footer">
+    <a class="site-brand" href="${pageContext.request.contextPath}/">Dwerty Location</a>
+    <span>Logements au Maroc</span>
+    <a href="${pageContext.request.contextPath}/">Voir les offres</a>
+</footer>

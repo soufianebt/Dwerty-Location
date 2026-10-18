@@ -21,16 +21,24 @@ public class CreateOffre extends HttpServlet {
      * Ces deux attributs seulement pour triter les fichiers uployed
      */
     public static final int TAILLE_TAMPON = 10240;
-    public static final String CHEMIN_FICHIERS = "C:\\Users";
+    public static final String CHEMIN_FICHIERS = System.getenv().getOrDefault("UPLOAD_DIR", "C:\\Users");
     private GestionDAO gestionDAO;
 
-    private static String getNomFichier(Part part) {
-        for (String contentDisposition : part.getHeader("content-disposition").split(";")) {
-            if (contentDisposition.trim().startsWith("filename")) {
-                return contentDisposition.substring(contentDisposition.indexOf('=') + 1).trim().replace("\"", "");
+    private static String getNomFichier(Part part) throws IOException {
+        if (part == null || part.getSize() == 0) {
+            return null;
+        }
+        String type = part.getContentType();
+        String extension = "image/jpeg".equals(type) ? ".jpg" : "image/png".equals(type) ? ".png" : null;
+        if (extension == null) {
+            return null;
+        }
+        try (InputStream input = part.getInputStream()) {
+            if (javax.imageio.ImageIO.read(input) == null) {
+                return null;
             }
         }
-        return null;
+        return java.util.UUID.randomUUID().toString() + extension;
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -174,19 +182,23 @@ public class CreateOffre extends HttpServlet {
         } else if (request.getParameter("submit_2") != null && request.getParameter("img_offre1") == null) {
 
 
-            int chambre_total = Integer.parseInt(request.getParameter("chambre_offre"));
-
-            int chambre_double = Integer.parseInt(request.getParameter("chambre_double_offre"));
-
-            int lit_total = Integer.parseInt(request.getParameter("lit_offre"));
-
-            double prix_offre = Double.parseDouble(request.getParameter("prix_offre"));
-
+            int chambre_total, chambre_double, lit_total, max_persone;
+            double prix_offre;
+            try {
+                chambre_total = Integer.parseInt(request.getParameter("chambre_offre"));
+                chambre_double = Integer.parseInt(request.getParameter("chambre_double_offre"));
+                lit_total = Integer.parseInt(request.getParameter("lit_offre"));
+                max_persone = Integer.parseInt(request.getParameter("max_offre"));
+                prix_offre = Double.parseDouble(request.getParameter("prix_offre"));
+            } catch (NumberFormatException exception) {
+                request.setAttribute("message", "Completez les informations numeriques du logement.");
+                request.getRequestDispatcher("/creer_offre2.jsp").forward(request, response);
+                return;
+            }
             String date_offre = request.getParameter("date_offre");
-
-            int max_persone = Integer.parseInt(request.getParameter("max_offre"));
-
-            if (prix_offre <= 0) {
+            if (!Double.isFinite(prix_offre) || prix_offre <= 0 || chambre_total < 1 || chambre_double < 0
+                    || chambre_double > chambre_total || lit_total < 1 || max_persone < 1
+                    || date_offre == null || date_offre.isEmpty()) {
 
                 request.setAttribute("message", "Les informations sont incorrect!");
 
@@ -215,7 +227,7 @@ public class CreateOffre extends HttpServlet {
              * Pour la troisieme forme de creation de l'offre
              */
 
-        } else if ((request.getPart("img_offre1") != null && request.getPart("img_offre2") != null) && (request.getPart("img_offre3") != null)) {
+        } else if (request.getContentType() != null && request.getContentType().startsWith("multipart/form-data")) {
 
 
 
@@ -235,6 +247,12 @@ public class CreateOffre extends HttpServlet {
             String nomFichier2 = getNomFichier(part2);
 
             String nomFichier3 = getNomFichier(part3);
+            if (nomFichier1 == null || nomFichier2 == null || nomFichier3 == null
+                    || request.getSession().getAttribute("titre") == null || request.getSession().getAttribute("prix_offre") == null) {
+                request.setAttribute("message", "Ajoutez trois images JPEG ou PNG valides et completez les etapes precedentes.");
+                request.getRequestDispatcher("/creer_offre3.jsp").forward(request, response);
+                return;
+            }
 
             /*
              * Premier Image
@@ -261,7 +279,8 @@ public class CreateOffre extends HttpServlet {
                  * Deuxieme Image
                  */
 
-            } else if (nomFichier2 != null && !nomFichier2.isEmpty()) {
+            }
+            if (nomFichier2 != null && !nomFichier2.isEmpty()) {
 
                 String nomChamp = part2.getName();
 
@@ -281,7 +300,8 @@ public class CreateOffre extends HttpServlet {
                  * Troisieme Image
                  */
 
-            } else if (nomFichier3 != null && !nomFichier3.isEmpty()) {
+            }
+            if (nomFichier3 != null && !nomFichier3.isEmpty()) {
 
                 String nomChamp = part3.getName();
 
@@ -314,7 +334,7 @@ public class CreateOffre extends HttpServlet {
             ImageLogement[] imageLogement = new ImageLogement[3];
 
 
-            logement.setIs_hotel_logement(0);
+            logement.setIs_hotel_logement(1);
             logement.setPrix_log_logement((double) session.getAttribute("prix_offre"));
             logement.setPersone_capacite_logement((int) session.getAttribute("max_persone"));
             logement.setTitre_log_logement((String) session.getAttribute("titre"));
@@ -324,19 +344,7 @@ public class CreateOffre extends HttpServlet {
             logement.setNbr_chambre_total((int) session.getAttribute("chambre_total"));
             logement.setNbr_lit_double((int) session.getAttribute("chambre_double"));
 
-            Cookie cookies[] = request.getCookies();
-
-            if (cookies != null) {
-
-                for (Cookie cookie : cookies) {
-
-                    if (cookie.getName().equals("iduser")) {
-
-                        logement.setCIN_prop_proprietaire(cookie.getValue());
-
-                    }
-                }
-            }
+            logement.setCIN_prop_proprietaire((String) session.getAttribute("iduser"));
 
 
             logement.setAdress_log_logement((String) session.getAttribute("ville"));
@@ -381,14 +389,9 @@ public class CreateOffre extends HttpServlet {
 
             gestionDAO.addImage(imageLogement);
 
-            request.setAttribute("filee", imageLogement[0].getUrl_img_Image());
-
-
-            request.setAttribute("message", "Votre offre est enregistrer!");
-
-            RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
-
-            rd.forward(request, response);
+            session.removeAttribute("titre");
+            session.removeAttribute("prix_offre");
+            response.sendRedirect(request.getContextPath() + "/ShowOffres?created=1");
 
 
             /*
@@ -423,7 +426,7 @@ public class CreateOffre extends HttpServlet {
         for (int i = 0; i < offre[0].size(); i++) {
 
             lg.add((Logement) offre[0].get(i));
-            url.add((ImageLogement) offre[1].get(i * 3));
+            url.add(OffrePresentation.imageFor(offre[1], lg.get(i)));
             notes.add((Notes) offre[2].get(i));
 
             OffrePresentation op = new OffrePresentation(lg.get(i).getTitre_log_logement(),
@@ -450,25 +453,13 @@ public class CreateOffre extends HttpServlet {
      *  Ces deux methodes seulement pour treter les fichiers
      */
     private void ecrireFichier(Part part, String nomFichier, String chemin) throws IOException {
-        BufferedInputStream entree = null;
-        BufferedOutputStream sortie = null;
-        try {
-            entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
-            sortie = new BufferedOutputStream(new FileOutputStream(new File(chemin + nomFichier)), TAILLE_TAMPON);
-
+        java.nio.file.Files.createDirectories(java.nio.file.Paths.get(chemin));
+        try (BufferedInputStream entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
+             BufferedOutputStream sortie = new BufferedOutputStream(new FileOutputStream(new File(chemin, nomFichier)), TAILLE_TAMPON)) {
             byte[] tampon = new byte[TAILLE_TAMPON];
             int longueur;
             while ((longueur = entree.read(tampon)) > 0) {
                 sortie.write(tampon, 0, longueur);
-            }
-        } finally {
-            try {
-                sortie.close();
-            } catch (IOException ignore) {
-            }
-            try {
-                entree.close();
-            } catch (IOException ignore) {
             }
         }
     }

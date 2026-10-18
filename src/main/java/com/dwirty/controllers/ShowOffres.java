@@ -33,21 +33,12 @@ public class ShowOffres extends HttpServlet {
             throws ServletException, IOException {
 
         gestionDAO = new GestionDAO();
-        String cin_pro = new String("");
-
-        Cookie cookies[] = request.getCookies();
-
-        if (cookies != null) {
-
-            for (Cookie cookie : cookies) {
-
-                if (cookie.getName().equals("iduser")) {
-
-                    cin_pro = cookie.getValue();
-
-                }
-            }
+        if ("1".equals(request.getParameter("created"))) {
+            request.setAttribute("message", "Votre offre est publiee.");
+        } else if ("1".equals(request.getParameter("updated"))) {
+            request.setAttribute("message", "Les modifications sont enregistrees.");
         }
+        String cin_pro = (String) request.getSession().getAttribute("iduser");
         List[] offre = gestionDAO.getOffrePro((String) cin_pro);
 
         if (offre.length != 0) {
@@ -61,7 +52,7 @@ public class ShowOffres extends HttpServlet {
             for (int i = 0; i < offre[0].size(); i++) {
 
                 lg.add((Logement) offre[0].get(i));
-                url.add((ImageLogement) offre[1].get(i * 3));
+                url.add(OffrePresentation.imageFor(offre[1], lg.get(i)));
                 notes.add((Notes) offre[2].get(i));
 
                 OffrePresentation op = new OffrePresentation(lg.get(i).getTitre_log_logement(),

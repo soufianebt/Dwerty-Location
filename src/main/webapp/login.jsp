@@ -10,28 +10,27 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Login</title>
-  <link rel="stylesheet" href="logincss.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/site.css">
 </head>
-<body>
-<div class="formlogin">
-
-  <form method="POST" action="LoginServlet">
-    <img src="img/LOGO1.png" width=128px height=128px/>
-    <h3 id="h3-seconnecter">Se connecter</h3>
-    <input type="text" id="email" name="email" placeholder="Email.." required="required"/><br>
-    <input type="password" id="password" name="password" placeholder="Mot de passe.." required="required"/><br>
-    <button type="submit" id="btn-connecter" name="login">Connecter</button>
-    <br>
-    <a id="signup-link" href="signup.jsp">Creer un nouveau compte</a>
-
-    <c:if test="${ !empty logintest }">
-
-      <p id="msg-auth" style="margin-left: 20%;color: orange;"><c:out value="${message}"/></p>
-
-    </c:if>
-
-
+<body id="login-page" class="app-page">
+<%@include file="WEB-INF/jspf/navigation.jspf" %>
+<main class="auth-content">
+  <h1>Se connecter</h1>
+  <c:if test="${not empty message}">
+    <div class="notice ${success ? 'notice-success' : ''}" role="status"><c:out value="${message}"/></div>
+  </c:if>
+  <form method="post" action="${pageContext.request.contextPath}/LoginServlet">
+    <label class="field" for="email">Adresse e-mail
+      <input type="email" id="email" name="email" autocomplete="username" required value="<c:out value='${param.email}'/>">
+    </label>
+    <label class="field" for="password">Mot de passe
+      <input type="password" id="password" name="password" autocomplete="current-password" required>
+    </label>
+    <button type="submit" name="login" value="1">Se connecter</button>
   </form>
-</div>
+  <p class="auth-switch">Pas encore de compte ? <a href="${pageContext.request.contextPath}/signup.jsp">Creer un compte</a></p>
+</main>
+<%@include file="WEB-INF/jspf/footer.jspf" %>
 </body>
 </html>

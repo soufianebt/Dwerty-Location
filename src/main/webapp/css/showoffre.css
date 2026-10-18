@@ -1,0 +1,126 @@
+.composon {
+
+            width: 337px;
+            height: 370px;
+            margin-left: 4%;
+            margin-top: 30px;
+            margin-bottom: 100px;
+            background-color: #FFFFFF;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        .img-1 {
+            border-radius: 10px 10px 0px 0px;
+
+        }
+
+        .titre {
+
+            font-size: 20px;
+            margin-left: 3%;
+            color: black;
+            display: inline-block;
+
+        }
+
+        .icon-1 {
+            margin-left: 2%;
+
+
+        }
+
+        .place-1 {
+            margin-top: -12px;
+            margin-left: 3%;
+            color: #005cbf;
+
+            text-align: left;
+
+        }
+
+        .prix-1 {
+
+            margin-top: -12px;
+            margin-left: 3%;
+            color: green;
+            text-align: left;
+
+
+        }
+
+        .btn-to-explor {
+
+
+            margin-left: 70%;
+            margin-top: -5px;
+            width: 80px;
+            height: 30px;
+            border-radius: 40px;
+            border: 0px;
+
+        }
+
+        .btn-to-explor:hover {
+
+
+            background-color: green;
+            color: white;
+            font-size: 15px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+        }
+
+        .note {
+            margin-top: -12px;
+            margin-left: 3%;
+
+
+        }
+
+        .etoil {
+            margin-top: -4px;
+            margin-left: 2px;
+            display: inline-block;
+        }
+
+        .note-num {
+            font-size: 17px;
+            margin-left: 0px;
+            color: #F49F00;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .note-pers {
+            font-size: 15px;
+            margin-left: 0px;
+            color: #000000;
+
+            display: inline-block;
+        }
+
+body#showoffre-page .showoffre-inline-1 {
+    color:#3963FF;
+}
+
+body#showoffre-page .showoffre-inline-2 {
+    margin-left: 10%;
+    font-size: 17px;
+}
+
+body#showoffre-page .showoffre-inline-3 {
+    margin-left: 3%;
+    font-size: 17px;
+}
+
+body#showoffre-page .showoffre-inline-4 {
+    background-color: #1b262c;
+    margin-top: 100px;
+}
+
+body#showoffre-page .showoffre-inline-5 {
+    margin-top: -140px;
+    margin-left: 200px;
+}

@@ -1,0 +1,98 @@
+:root { --site-ink: #213e3b; --site-muted: #60736f; --site-border: #d7e2df; --site-blue: #076bd7; --site-green: #16765c; }
+* { box-sizing: border-box; }
+body.app-page { margin: 0; min-height: 100vh; color: var(--site-ink); background: #f5f8f7; font-family: Lato, sans-serif; letter-spacing: 0; }
+.site-nav { background: #fff; border-bottom: 1px solid var(--site-border); }
+.site-nav-inner { max-width: 1180px; margin: auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.site-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--site-blue); font-size: 20px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.site-brand img { object-fit: contain; }
+.site-links { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 22px; font-size: 14px; }
+.site-links > a:not(.button) { color: var(--site-ink); text-decoration: none; }
+.site-links a:hover { text-decoration: underline; }
+.account-name { color: var(--site-muted); }
+.logout-form { margin: 0; }
+.app-page .button, .app-page button[type=submit] { display: inline-flex; justify-content: center; align-items: center; min-height: 44px; padding: 10px 18px; border: 1px solid var(--site-blue); border-radius: 5px; background: var(--site-blue); color: #fff; font: inherit; font-weight: 700; cursor: pointer; text-decoration: none; }
+.app-page .button-secondary { background: #fff; color: var(--site-blue); }
+.app-page a:focus-visible, .app-page button:focus-visible, .app-page input:focus-visible, .app-page select:focus-visible, .app-page textarea:focus-visible { outline: 3px solid #e7b840; outline-offset: 3px; }
+.site-footer { max-width: 1180px; margin: 0 auto; padding: 30px 24px; display: flex; align-items: center; flex-wrap: wrap; gap: 24px; border-top: 1px solid var(--site-border); color: var(--site-muted); font-size: 14px; }
+.site-footer .site-brand { font-size: 17px; }
+.site-footer > a:last-child { margin-left: auto; color: var(--site-blue); }
+.auth-content { max-width: 520px; margin: 40px auto 64px; padding: 0 24px; }
+.auth-content h1 { margin: 0 0 28px; font-size: 30px; }
+.auth-content form { display: grid; gap: 18px; }
+.field { display: grid; gap: 7px; font-size: 14px; font-weight: 700; }
+.app-page input:not([type=radio]):not([type=checkbox]):not([type=hidden]), .app-page select, .app-page textarea { max-width: 100%; min-width: 0; border: 1px solid var(--site-border); border-radius: 5px; padding: 11px 12px; background: #fff; color: var(--site-ink); font: inherit; min-height: 44px; }
+.auth-content input { width: 100%; }
+.auth-content fieldset { margin: 0; padding: 12px 16px; border: 1px solid var(--site-border); border-radius: 5px; }
+.auth-content legend { width: auto; padding: 0 6px; font-size: 14px; font-weight: 700; }
+.role-options { display: flex; gap: 24px; flex-wrap: wrap; }
+.role-options label { display: inline-flex; align-items: center; gap: 8px; margin: 0; }
+.role-options input { width: auto; accent-color: var(--site-blue); }
+.auth-switch { margin-top: 24px; color: var(--site-muted); font-size: 14px; }
+.auth-switch a { color: var(--site-blue); }
+.notice { padding: 14px 16px; margin: 0 0 24px; border-left: 3px solid #be4a39; color: #852c20; background: #fff0ec; overflow-wrap: anywhere; }
+.notice-success { border-color: var(--site-green); color: #155a46; background: #e8f6ef; }
+.page-content { max-width: 1180px; margin: 40px auto; padding: 0 24px; min-height: 350px; }
+.page-content h1 { font-size: 30px; margin: 0 0 26px; }
+.offer-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.offer-card { min-width: 0; border: 1px solid var(--site-border); border-radius: 7px; overflow: hidden; background: #fff; }
+.offer-card > img { display: block; width: 100%; height: 220px; object-fit: cover; }
+.offer-card-content { padding: 18px; }
+.offer-card h2 { font-size: 21px; margin: 0 0 10px; overflow-wrap: anywhere; }
+.offer-card p { margin: 8px 0; text-align: left; color: var(--site-muted); }
+.offer-price { color: var(--site-green) !important; font-weight: 700; }
+.offer-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.offer-actions form { margin: 0; }
+.app-page .composon { width: 100%; height: auto; margin: 0; padding-bottom: 20px; border-radius: 7px; border: 1px solid var(--site-border); box-shadow: none; overflow: hidden; }
+.app-page .composon > img { width: 100%; height: 220px; object-fit: cover; border-radius: 0; }
+.app-page .composon .titre { display: block; margin: 18px 16px 12px; text-align: left; overflow-wrap: anywhere; }
+.app-page .composon .place-1, .app-page .composon .prix-1, .app-page .composon .note { margin: 10px 16px; }
+.app-page .composon .offer-actions { padding: 0 16px; }
+.app-page .composon .offer-actions button { font-size: 13px; }
+.empty-state { padding: 32px 0; border-top: 1px solid var(--site-border); color: var(--site-muted); }
+.app-page .form-offre-1 { display: grid; gap: 14px; width: min(100% - 48px, 720px); height: auto; margin: 40px auto 56px; padding: 28px; background: #fff; border: 1px solid var(--site-border); border-radius: 7px; box-shadow: none; }
+.app-page .form-offre-1 > br { display: none; }
+.app-page .form-offre-1 > label, .app-page .form-offre-1 > input, .app-page .form-offre-1 > select, .app-page .form-offre-1 > textarea, .app-page .form-offre-1 > button { margin: 0; width: 100%; height: auto; max-width: 100%; }
+.app-page .form-offre-1 .ms { color: var(--site-ink); font-size: 26px; font-weight: 700; }
+.app-page .form-offre-1 textarea { min-height: 140px; }
+.app-page .message { max-width: 720px; margin: 24px auto; color: #852c20; }
+.detail-content { max-width: 1100px; margin: 36px auto; padding: 0 24px; }
+.detail-content h1 { font-size: 32px; }
+.detail-gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; margin: 24px 0; }
+.detail-gallery img { width: 100%; height: 280px; object-fit: cover; border-radius: 6px; }
+.detail-info { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; padding: 24px 0; border-bottom: 1px solid var(--site-border); }
+.detail-content p { color: var(--site-ink); text-align: left; overflow-wrap: anywhere; }
+.detail-content h2 { font-size: 23px; margin: 24px 0 16px; }
+.review { border-top: 1px solid var(--site-border); padding: 20px 0; }
+.review strong { color: var(--site-green); }
+.review-form { max-width: 640px; display: grid; gap: 16px; margin: 24px 0 40px; }
+.review-form textarea { min-height: 110px; }
+.detail-info p { margin: 12px 0; width: auto; height: auto; line-height: 1.65; }
+.detail-content > .note { margin: 12px 0; }
+.detail-content > .offre-ville { margin: 0; display: inline-block; }
+.detail-content .img-prop { margin: 0; width: 48px; height: 48px; }
+.app-page .div-details { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; width: min(100% - 48px, 1100px); height: auto; margin: 24px auto; }
+.app-page .div-details > img { width: 100%; height: 260px; margin: 0; border-radius: 6px; object-fit: cover; }
+.app-page .offre-titre-div { width: min(100% - 48px, 1100px); height: auto; margin: 32px auto 16px; }
+.app-page .offre-titre { margin: 0; font-size: 28px; text-align: left; }
+.app-page .offre-info { display: grid; gap: 14px; width: min(100% - 48px, 800px); height: auto; margin: 24px auto 48px; padding: 24px; border-radius: 6px; background: #fff; }
+.app-page .offre-info p { margin: 0; height: auto; width: auto; text-align: left; }
+.app-page .offre-info input, .app-page .offre-info textarea { width: 100%; margin: 5px 0; }
+.app-page .offre-info textarea { height: 140px; }
+.app-page .offre-info button { width: 100%; margin: 16px 0 0; }
+@media (max-width: 767px) {
+    .site-nav-inner { padding: 14px 20px; align-items: flex-start; flex-direction: column; gap: 14px; }
+    .site-links { justify-content: flex-start; gap: 12px 18px; font-size: 13px; }
+    .account-name { display: none; }
+    .site-links .button { font-size: 13px; padding: 8px 12px; }
+    .auth-content { margin-top: 28px; padding: 0 20px; }
+    .offer-list { grid-template-columns: 1fr; }
+    .page-content { margin: 28px auto; padding: 0 20px; }
+    .site-footer { padding: 24px 20px; }
+    .app-page .form-offre-1 { width: calc(100% - 32px); padding: 20px; }
+    .detail-gallery { grid-template-columns: 1fr 1fr; }
+    .detail-gallery img { height: 150px; }
+    .detail-gallery img:first-child { grid-column: 1 / -1; height: 240px; }
+    .detail-info { grid-template-columns: 1fr; gap: 12px; }
+    .app-page .div-details { grid-template-columns: 1fr; }
+    .app-page .div-details > img { height: 200px; }
+}

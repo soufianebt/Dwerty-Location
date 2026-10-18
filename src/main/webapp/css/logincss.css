@@ -89,4 +89,7 @@ and open the template in the editor.
 
 }
 
-
+body#login-page .login-inline-1 {
+    margin-left: 20%;
+    color: orange;
+}

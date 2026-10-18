@@ -143,3 +143,23 @@ and open the template in the editor.
     margin-left: 15%;
     margin-top: -20px;
 }
+
+body#creer_offre2-page .creer_offre2-inline-1 {
+    margin-left: 10%;
+    font-size: 17px;
+}
+
+body#creer_offre2-page .creer_offre2-inline-2 {
+    margin-left: 3%;
+    font-size: 17px;
+}
+
+body#creer_offre2-page .creer_offre2-inline-3 {
+    background-color: #1b262c;
+    margin-top: 150px;
+}
+
+body#creer_offre2-page .creer_offre2-inline-4 {
+    margin-top: -140px;
+    margin-left: 200px;
+}

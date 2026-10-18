@@ -34,6 +34,11 @@ public class ModifieOffre extends HttpServlet {
 
             gestionDAO = new GestionDAO();
             List[] offreDetais = gestionDAO.getDetaisOffre(request.getParameter("btn_modifie"));
+            if (offreDetais[0].isEmpty() || !((Logement) offreDetais[0].get(0)).getCIN_prop_proprietaire()
+                    .equals(request.getSession().getAttribute("iduser"))) {
+                response.sendRedirect(request.getContextPath() + "/ShowOffres");
+                return;
+            }
 
 
             Object v[] = (Object[]) offreDetais[1].get(0);
@@ -53,7 +58,7 @@ public class ModifieOffre extends HttpServlet {
             request.setAttribute("imageslogement2", imageslg2);
             request.setAttribute("imageslogement3", imageslg3);
 
-            response.addCookie(new Cookie("offretitre", lgs.getTitre_log_logement()));
+            request.getSession().setAttribute("offretitre", lgs.getTitre_log_logement());
 
             Cookie cookies[] = request.getCookies();
 
@@ -82,6 +87,14 @@ public class ModifieOffre extends HttpServlet {
             throws ServletException, IOException {
 
         if (request.getParameter("btn_save") != null) {
+            String titreOffre = (String) request.getSession().getAttribute("offretitre");
+            GestionDAO dao = new GestionDAO();
+            List[] existing = dao.getDetaisOffre(titreOffre);
+            if (existing[0].isEmpty() || !((Logement) existing[0].get(0)).getCIN_prop_proprietaire()
+                    .equals(request.getSession().getAttribute("iduser"))) {
+                response.sendRedirect(request.getContextPath() + "/ShowOffres");
+                return;
+            }
 
             String offreTitre = request.getParameter("offre_titre");
 
@@ -115,7 +128,7 @@ public class ModifieOffre extends HttpServlet {
                 logement.setDisponibilite_log_logement(offreDateMod);
 
             }
-            if (request.getParameter("disponibilite").equals("active")) {
+            if ("active".equals(request.getParameter("disponibilite"))) {
                 logement.setIs_hotel_logement(1);
             } else {
                 logement.setIs_hotel_logement(0);
@@ -130,20 +143,6 @@ public class ModifieOffre extends HttpServlet {
 
             gestionDAO = new GestionDAO();
 
-            String titreOffre = new String("");
-            Cookie cookies[] = request.getCookies();
-
-            if (cookies != null) {
-
-                for (Cookie cookie : cookies) {
-
-                    if (cookie.getName().equals("offretitre")) {
-
-                        titreOffre = cookie.getValue();
-
-                    }
-                }
-            }
             gestionDAO.updateOffre(logement, titreOffre);
 
             request.setAttribute("message", "Les modifications sont enregistrées!");
@@ -162,8 +161,8 @@ public class ModifieOffre extends HttpServlet {
                 }
             }
 
-            RequestDispatcher rd = request.getRequestDispatcher("/result.jsp");
-            rd.forward(request, response);
+            request.getSession().removeAttribute("offretitre");
+            response.sendRedirect(request.getContextPath() + "/ShowOffres?updated=1");
 
 
         }

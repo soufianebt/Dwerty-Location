@@ -15,7 +15,13 @@ public class HibernateUtil {
         if (sessionFactory == null) {
             try {
                 // Create registry
-                registry = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+                        .configure("hibernate.cfg.xml");
+                applyEnvironmentSetting(builder, "DB_URL", "hibernate.connection.url");
+                applyEnvironmentSetting(builder, "DB_USERNAME", "hibernate.connection.username");
+                applyEnvironmentSetting(builder, "DB_PASSWORD", "hibernate.connection.password");
+                applyEnvironmentSetting(builder, "DB_DIALECT", "hibernate.dialect");
+                registry = builder.build();
                 // Create MetadataSources
                 MetadataSources sources = new MetadataSources(registry);
                 // Create Metadata
@@ -30,6 +36,14 @@ public class HibernateUtil {
             }
         }
         return sessionFactory;
+    }
+
+    private static void applyEnvironmentSetting(StandardServiceRegistryBuilder builder,
+                                                String environmentName, String settingName) {
+        String value = System.getenv(environmentName);
+        if (value != null && !value.isEmpty()) {
+            builder.applySetting(settingName, value);
+        }
     }
 
     public static void shutdown() {

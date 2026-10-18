@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Locale;
+import java.util.UUID;
+import java.nio.charset.StandardCharsets;
+import javax.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet" )
 public class LoginServlet extends HttpServlet {
@@ -31,7 +36,10 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //if(request.getAttribute("btn-connect"))
+        if ("1".equals(request.getParameter("registered"))) {
+            request.setAttribute("message", "Votre compte est cree. Vous pouvez vous connecter.");
+            request.setAttribute("success", true);
+        }
         RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
         rd.forward(request, response);
 
@@ -41,121 +49,81 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        /*
-         *
-         * Test les informations de connexion de l'utilisateur
-         */
-        if (request.getParameter("login") != null) {
-
-            UserSession usersession = new UserSession(request.getParameter("email"),
-                    request.getParameter("password"),
-                    new Random().nextInt(99999)
-            );
-
-            this.gestionDAO = new GestionDAO();
-            List result = this.gestionDAO.testSessionUser(usersession);
-
-            if (result.isEmpty()) {
-
-                request.setAttribute("logintest", "field");
-
-                request.setAttribute("message", "Email ou mot de passe est incorrect !");
-
-            } else {
-
-                request.setAttribute("logintest", "succes");
-
-                request.setAttribute("message", "les informations sont correcte!");
-
-                response.addCookie(new Cookie("useremail", request.getParameter("email")));
-                response.addCookie(new Cookie("iduser", ((User) result.get(0)).getId()));
-
-                request.setAttribute("useremail", request.getParameter("email"));
-
-
-
-
-
-                /*
-                Extract les offres deja existent sur la base de donnees
-                 */
-                gestionDAO = new GestionDAO();
-
-                List[] offre = gestionDAO.getOffre();
-
-                request.setAttribute("logement", this.traitOffre(offre));
-
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/home.jsp");
-
-                requestDispatcher.forward(request, response);
-
+        request.setCharacterEncoding("UTF-8");
+        if (request.getParameter("logout") != null) {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
             }
-
-
-
-
-            /*
-             *  Enregistrer la session de l'utilisateur avec la technique des coockies
-             */
-        } else if (request.getParameter("signup") != null) {
-
-            /*
-             * Enregistrer un nouvel utilisateur
-             */
-            User user = new User();
-
-            Proprietaire proprietaire = new Proprietaire();
-
-            user.setNom_client_client(request.getParameter("nom"));
-
-            user.setPrenom_client_client(request.getParameter("prenom"));
-
-            user.setEmail_client_client(request.getParameter("email"));
-
-            user.setTele_client_client(request.getParameter("telephone"));
-
-            user.setPassword_client_client(request.getParameter("password"));
-
-            user.setId(user.getNom_client_client().substring(1, 3)
-                    + user.getTele_client_client().substring(3, 5)
-                    + new Random().nextInt(999999));
-
-            if (request.getParameter("insc_type").equals("Locataire")) {
-
-                user.setValide_email_client(1);
-
-                /**
-                 * Le new user is a proprietaire
-                 */
-                proprietaire.setCIN_prop_proprietaire(user.getId());
-                proprietaire.setNom_prop_proprietaire(user.getNom_client_client());
-                proprietaire.setPrenom_prop_proprietaire(user.getPrenom_client_client());
-
-            } else {
-
-                user.setValide_email_client(0);
-
-            }
-
-            this.gestionDAO = new GestionDAO();
-
-            this.gestionDAO.addUser(user);
-
-            /*
-             * Dans le cas ou le client es coche la case du locataire donc on va enregistrer
-             * le client comme etons un client proprietaire plus que un client normal
-             */
-            if (user.getId().equals(proprietaire.getCIN_prop_proprietaire())) {
-
-                this.gestionDAO.addProprietaire(proprietaire);
-            }
-
-            RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-            rd.forward(request, response);
-
+            response.sendRedirect(request.getContextPath() + "/");
+            return;
         }
+        GestionDAO gestionDAO = new GestionDAO();
+        String email = value(request, "email").toLowerCase(Locale.ROOT);
+        String password = request.getParameter("password");
+        if (request.getParameter("signup") != null) {
+            String nom = value(request, "nom");
+            String prenom = value(request, "prenom");
+            String telephone = value(request, "telephone");
+            if (nom.isEmpty() || prenom.isEmpty() || !email.matches("[^\\s@]+@[^\\s@]+\\.[^\\s@]+")
+                    || !telephone.matches("[+0-9 ()-]{6,25}") || password == null || password.length() < 8
+                    || password.getBytes(StandardCharsets.UTF_8).length > 72) {
+                showError(request, response, "/signup.jsp", "Verifiez les champs. Le mot de passe doit contenir au moins 8 caracteres (72 octets maximum).");
+                return;
+            }
+            if (!password.equals(request.getParameter("validepassword"))) {
+                showError(request, response, "/signup.jsp", "Les mots de passe ne correspondent pas.");
+                return;
+            }
+            String role = value(request, "insc_type");
+            if (!"Locataire".equals(role) && !"Benefice".equals(role)) {
+                showError(request, response, "/signup.jsp", "Choisissez un profil.");
+                return;
+            }
+            if (gestionDAO.findUserByEmail(email) != null) {
+                showError(request, response, "/signup.jsp", "Un compte utilise deja cette adresse e-mail.");
+                return;
+            }
+            User user = new User();
+            user.setId(UUID.randomUUID().toString());
+            user.setNom_client_client(nom);
+            user.setPrenom_client_client(prenom);
+            user.setTele_client_client(telephone);
+            user.setEmail_client_client(email);
+            user.setPassword_client_client(BCrypt.hashpw(password, BCrypt.gensalt(12)));
+            user.setValide_email_client("Locataire".equals(role) ? 1 : 0);
+            gestionDAO.registerUser(user);
+            response.sendRedirect(request.getContextPath() + "/LoginServlet?registered=1");
+            return;
+        }
+        if (password == null || email.isEmpty() || password.getBytes(StandardCharsets.UTF_8).length > 72) {
+            showError(request, response, "/login.jsp", "Saisissez votre e-mail et votre mot de passe.");
+            return;
+        }
+        List results = gestionDAO.testSessionUser(new UserSession(email, password, 0));
+        if (results.isEmpty()) {
+            showError(request, response, "/login.jsp", "E-mail ou mot de passe incorrect.");
+            return;
+        }
+        User user = (User) results.get(0);
+        HttpSession session = request.getSession();
+        request.changeSessionId();
+        session.setAttribute("useremail", user.getEmail_client_client());
+        session.setAttribute("iduser", user.getId());
+        session.setAttribute("owner", user.getValide_email_client() == 1);
+        session.setAttribute("displayName", user.getPrenom_client_client());
+        response.sendRedirect(request.getContextPath() + "/");
+    }
 
+    private String value(HttpServletRequest request, String name) {
+        String value = request.getParameter(name);
+        return value == null ? "" : value.trim();
+    }
+
+    private void showError(HttpServletRequest request, HttpServletResponse response, String view, String message)
+            throws ServletException, IOException {
+        request.setAttribute("message", message);
+        request.getRequestDispatcher(view).forward(request, response);
     }
 
     /*

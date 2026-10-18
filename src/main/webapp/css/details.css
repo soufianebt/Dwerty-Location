@@ -1,0 +1,298 @@
+.div-details {
+      width: 90%;
+      height: 600px;
+
+      margin-top: 10px;
+      margin-left: 5%;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .img-1 {
+
+      width: 60%;
+      height: 450px;
+      background-color: #000;
+      margin-top: 30px;
+      margin-left: 2%;
+      border-radius: 20px 0px 0px 20px;
+      display: inline-block;
+
+    }
+
+    .img-2 {
+      display: inline-block;
+      width: 35%;
+      height: 223px;
+      background-color: #000;
+      margin-top: 259.5px;
+      margin-left: 0.25%;
+      border-radius: 0px 0px 20px 0px;
+
+    }
+
+    .img-3 {
+      display: inline-block;
+      width: 35%;
+      height: 222px;
+      background-color: #000;
+      margin-bottom: 199px;
+      margin-left: -35.36%;
+      border-radius: 0px 20px 0px 0px;
+
+    }
+
+    .offre-info {
+
+      display: inline-block;
+      width: 86%;
+      height: 500px;
+      /*margin-bottom: 0%;*/
+      /*margin-top: -200px;*/
+
+
+      border-radius: 20px 20px 20px 20px;
+      padding-left: 10px;
+      margin-top: -50px;
+      margin-left: 6.5%;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+
+    }
+
+    .offre-titre {
+
+      margin-top: 100px;
+      margin-left: 0%;
+      font-size: 35px;
+      display: inline-block;
+
+    }
+
+    .offre-icone {
+      display: inline-block;
+      margin-top: -10px;
+      margin-left: 6.5%;
+
+
+    }
+
+    .offre-ville {
+      display: inline-block;
+      font-size: 19px;
+      margin-left: 14px;
+      margin-top: 10px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    .propritaire-info {
+      display: inline-block;
+      width: 32%;
+      height: 300px;
+
+      margin-top: -100px;
+      margin-bottom: -200px;
+      margin-left: 5px;
+      border-radius: 0px 20px 20px 0px;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .img-prop {
+      display: inline-block;
+      margin-top: -5px;
+    }
+
+    .prop-p {
+      display: inline-block;
+      margin-left: 15px;
+      margin-top: 30px;
+    }
+
+    .offre-propritaire {
+      margin-left: 44px;
+      margin-bottom: 2px;
+      font-size: 20px;
+    }
+
+    .offre-propritaire-tele {
+      margin-top: 0px;
+      margin-left: 44px;
+      font-size: 20px;
+    }
+
+    .note {
+      margin-top: -20px;
+      margin-left: 3%;
+      display: inline-block;
+
+
+    }
+
+    .etoil {
+      margin-top: -10px;
+      margin-left: 2px;
+      display: inline-block;
+    }
+
+    .note-num {
+      font-size: 22px;
+      margin-left: 0px;
+      margin-top: 0px;
+      color: #F49F00;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .note-pers {
+      margin-bottom: -40px;
+      font-size: 21px;
+      margin-left: 0px;
+      color: #000000;
+
+      display: inline-block;
+    }
+
+    .offre-titre-div {
+      display: inline-block;
+      margin-left: 6.5%;
+
+    }
+
+    .offre-commentaires {
+
+      display: inline-block;
+      width: 86%;
+
+      /*margin-bottom: 0%;*/
+      /*margin-top: -200px;*/
+
+
+      border-radius: 20px 20px 20px 20px;
+      padding-left: 10px;
+      margin-top: 50px;
+      margin-left: 6.5%;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      padding-top: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .save-commt:hover {
+
+
+      background-color: green;
+      color: white;
+      font-size: 15px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+body#details-page .details-inline-1 {
+    color:#007bff;
+}
+
+body#details-page .details-inline-2 {
+    margin-left: 10%;
+    font-size: 17px;
+}
+
+body#details-page .details-inline-3 {
+    margin-left: 3%;
+    font-size: 17px;
+}
+
+body#details-page .details-inline-4 {
+    color:green;
+}
+
+body#details-page .details-inline-5 {
+    color:red;
+}
+
+body#details-page .details-inline-6 {
+    color: blue;
+}
+
+body#details-page .details-inline-7 {
+    width: 90%;
+    height: 200px;
+    background-color: #FFFFFF;
+    margin-left: 20px;
+}
+
+body#details-page .details-inline-8 {
+    border-radius: 25px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+body#details-page .details-inline-9 {
+    font-weight: bold;
+    display: inline-block;
+    font-size: 18px;
+    margin-left: 15px;
+    margin-top:0px;
+}
+
+body#details-page .details-inline-10 {
+    font-weight: bold;
+    display: inline-block;
+    font-size: 18px;
+    margin-left: 15px;
+    margin-top:0px;
+    color: #F49F00;
+}
+
+body#details-page .details-inline-11 {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: -5px;
+}
+
+body#details-page .details-inline-12 {
+    margin-left: 6.5%;
+}
+
+body#details-page .details-inline-13 {
+    color: #F49F00;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+body#details-page .details-inline-14 {
+    margin-left: 10px;
+    color: #F49F00;
+}
+
+body#details-page .details-inline-15 {
+    margin-top: 20px;
+    margin-left:6.5%;
+    width: 95%;
+    height: 70px;
+    padding-left: 3px;
+}
+
+body#details-page .details-inline-16 {
+    margin-left: 90%;
+    margin-top: 20px;
+    height: 30px;
+    width: 120px;
+    border-radius: 30px;
+    border:0px;
+}
+
+.offre-commentaires {
+    height: auto;
+    min-height: 300px;
+    padding-bottom: 32px;
+}

@@ -12,7 +12,6 @@
         <servlet-name>CreateOffre</servlet-name>
         <servlet-class>com.dwirty.controllers.CreateOffre</servlet-class>
         <multipart-config>
-            <location>E:\Documents\assets\tmp\</location>
             <max-file-size>10485760</max-file-size>
             <!-- 10 Mo -->
             <max-request-size>52428800</max-request-size>
@@ -45,7 +44,8 @@
 
 <servlet-mapping>
     <servlet-name>HomeServlet</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern></url-pattern>
+    <url-pattern>/HomeServlet</url-pattern>
 </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateOffre</servlet-name>

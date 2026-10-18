@@ -1,6 +1,18 @@
 package com.dwirty.gestion;
 
 public class OffrePresentation {
+    public static com.dwirty.beans.ImageLogement imageFor(java.util.List images, com.dwirty.beans.Logement logement) {
+        for (Object value : images) {
+            com.dwirty.beans.ImageLogement image = (com.dwirty.beans.ImageLogement) value;
+            if (image.getId_log_logement() == logement.getId_log_logement()) {
+                return image;
+            }
+        }
+        com.dwirty.beans.ImageLogement fallback = new com.dwirty.beans.ImageLogement();
+        fallback.setUrl_img_Image("img/maison.jpg");
+        return fallback;
+    }
+
     private String titre, ville, url;
     private int nbrNote;
     private double prix;

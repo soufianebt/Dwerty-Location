@@ -5,12 +5,42 @@ import com.dwirty.crud.DAO;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GestionDAO implements DAO {
+
+    public User findUserByEmail(String email) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM User where lower(email_client_client) = :email", User.class)
+                    .setParameter("email", email).setMaxResults(1).uniqueResult();
+        }
+    }
+
+    public void registerUser(User user) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            try {
+                session.save(user);
+                if (user.getValide_email_client() == 1) {
+                    Proprietaire owner = new Proprietaire();
+                    owner.setCIN_prop_proprietaire(user.getId());
+                    owner.setNom_prop_proprietaire(user.getNom_client_client());
+                    owner.setPrenom_prop_proprietaire(user.getPrenom_client_client());
+                    session.save(owner);
+                }
+                transaction.commit();
+            } catch (RuntimeException exception) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+                throw exception;
+            }
+        }
+    }
 
 
     /**
@@ -48,33 +78,19 @@ public class GestionDAO implements DAO {
 
     @Override
     public List testSessionUser(UserSession usersession) {
-
-
-        List results = null;
-
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        String qr = " FROM User"
-                + " where email_client_client = :email and password_client_client = :password";
-
-
-        Query query = session.createQuery(qr);
-
-        query.setParameter("email", usersession.getEmail());
-
-        query.setParameter("password", usersession.getPassword());
-
-        results = query.list();
-
-        if (!results.isEmpty()) {
-
-            return results;
+        List<User> results = new ArrayList<>();
+        User user = findUserByEmail(usersession.getEmail());
+        if (user != null) {
+            String stored = user.getPassword_client_client();
+            boolean matches = stored != null && (stored.startsWith("$2a$")
+                    ? BCrypt.checkpw(usersession.getPassword(), stored)
+                    : java.security.MessageDigest.isEqual(stored.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+                            usersession.getPassword().getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+            if (matches) {
+                results.add(user);
+            }
         }
-
         return results;
-
-
     }
 
     /*
@@ -265,7 +281,7 @@ public class GestionDAO implements DAO {
 
         }
         offres[2] = notes;
-
+        session.close();
         return offres;
 
 
@@ -293,6 +309,10 @@ public class GestionDAO implements DAO {
 
         logement = query1.list();
         propritaire = query2.list();
+        if (logement.isEmpty()) {
+            session.close();
+            return new List[]{logement, propritaire, new ArrayList<ImageLogement>()};
+        }
 
 
         query3.setParameter("idlogement", (int) ((Logement) logement.get(0)).getId_log_logement());
@@ -301,6 +321,7 @@ public class GestionDAO implements DAO {
         res[0] = logement;
         res[1] = propritaire;
         res[2] = images;
+        session.close();
 
 
         return res;
@@ -334,9 +355,7 @@ public class GestionDAO implements DAO {
             query2.setParameter("id_log", (int) ((Logement) results.get(i)).getId_log_logement());
 
 
-            results2.add((ImageLogement) query2.list().get(0));
-            results2.add((ImageLogement) query2.list().get(1));
-            results2.add((ImageLogement) query2.list().get(2));
+            results2.addAll(query2.list());
 
 
         }
@@ -367,7 +386,7 @@ public class GestionDAO implements DAO {
         offres[2] = notes;
         offres[0] = results;
         offres[1] = results2;
-
+        session.close();
         return offres;
     }
 
@@ -446,9 +465,7 @@ public class GestionDAO implements DAO {
             Query query2 = session.createQuery(qr2);
             query2.setParameter("idlogm", (int) ((Logement) results.get(i)).getId_log_logement());
 
-            results2.add((ImageLogement) query2.list().get(0));
-            results2.add((ImageLogement) query2.list().get(1));
-            results2.add((ImageLogement) query2.list().get(2));
+            results2.addAll(query2.list());
 
         }
 
@@ -479,6 +496,7 @@ public class GestionDAO implements DAO {
         offres[0] = results;
         offres[1] = results2;
         offres[2] = notes;
+        session.close();
 
         return offres;
 
@@ -560,6 +578,7 @@ public class GestionDAO implements DAO {
         results.add(note);
         noteCommts[0] = results;
         noteCommts[1] = commtes;
+        session.close();
 
         return noteCommts;
     }
@@ -570,8 +589,12 @@ public class GestionDAO implements DAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query qr = session.createQuery("select nom_client_client,prenom_client_client from User where id=:cin");
         qr.setParameter("cin", cin);
-        data[0] = (String) ((Object[]) qr.list().get(0))[0];
-        data[1] = (String) ((Object[]) qr.list().get(0))[1];
+        List users = qr.list();
+        if (!users.isEmpty()) {
+            data[0] = (String) ((Object[]) users.get(0))[0];
+            data[1] = (String) ((Object[]) users.get(0))[1];
+        }
+        session.close();
 
         return data;
     }

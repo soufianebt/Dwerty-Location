@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@WebServlet(name = "HomeServlet", urlPatterns = {"/"})
+@WebServlet(name = "HomeServlet", urlPatterns = {"", "/HomeServlet"})
 public class HomeServlet extends HttpServlet {
 
     private GestionDAO gestionDAO;
@@ -54,7 +54,7 @@ public class HomeServlet extends HttpServlet {
             for (int i = 0; i < offre[0].size(); i++) {
 
                 lg.add((Logement) offre[0].get(i));
-                url.add((ImageLogement) offre[1].get(i * 3));
+                url.add(OffrePresentation.imageFor(offre[1], lg.get(i)));
                 notes.add((Notes) offre[2].get(i));
 
                 OffrePresentation op = new OffrePresentation(lg.get(i).getTitre_log_logement(),
@@ -111,7 +111,7 @@ public class HomeServlet extends HttpServlet {
             for (int i = 0; i < offre[0].size(); i++) {
 
                 lg.add((Logement) offre[0].get(i));
-                url.add((ImageLogement) offre[1].get(i * 3));
+                url.add(OffrePresentation.imageFor(offre[1], lg.get(i)));
                 notes.add((Notes) offre[2].get(i));
 
                 OffrePresentation op = new OffrePresentation(lg.get(i).getTitre_log_logement(),

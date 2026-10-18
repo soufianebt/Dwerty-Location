@@ -1,0 +1,38 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:${APP_PORT:-8080}:8080"
+    environment:
+      DB_URL: jdbc:mysql://db:3306/Dwerty?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      DB_USERNAME: dwerty
+      DB_PASSWORD: ${DB_PASSWORD:-dwerty-local-password}
+      DB_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      UPLOAD_DIR: /usr/local/tomcat/webapps/ROOT/img
+    volumes:
+      - uploads:/usr/local/tomcat/webapps/ROOT/img
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: Dwerty
+      MYSQL_USER: dwerty
+      MYSQL_PASSWORD: ${DB_PASSWORD:-dwerty-local-password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-dwerty-local-root-password}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_PASSWORD\" mysql --protocol=TCP -h 127.0.0.1 -u\"$$MYSQL_USER\" \"$$MYSQL_DATABASE\" -e 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  uploads:

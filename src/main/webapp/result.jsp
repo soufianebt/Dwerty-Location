@@ -7,13 +7,16 @@
 
     <title>Save</title>
 
-    <link rel="stylesheet" href="style/bootstrap/js/bootstrap.min.js">
-    <link rel="stylesheet" href="style/Footer.css">
-    <link rel="stylesheet" href="create_offre_result.css"/>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Footer.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/create_offre_result.css"/>
 
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/site.css">
 </head>
-<body>
+<body class="app-page">
+<%@include file="WEB-INF/jspf/navigation.jspf" %>
 <form class="form-offre-1" method="GET" action="CreateOffre">
 
     <c:choose>
@@ -34,7 +37,8 @@
 </form>
 
 
-<script src="/Ressources/js/jquery.min.js"></script>
-<script src="style/bootstrap/js/bootstrap.min.js"></script>
+
+
+<%@include file="WEB-INF/jspf/footer.jspf" %>
 </body>
 </html>

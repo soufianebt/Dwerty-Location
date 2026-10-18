@@ -1,0 +1,27 @@
+<nav class="site-nav" aria-label="Navigation principale">
+    <div class="site-nav-inner">
+        <a class="site-brand" href="${pageContext.request.contextPath}/">
+            <img src="${pageContext.request.contextPath}/img/LOGO1.png" width="42" height="42" alt="">
+            Dwerty
+        </a>
+        <div class="site-links">
+            <a href="${pageContext.request.contextPath}/">Les offres</a>
+            <c:if test="${sessionScope.owner}">
+                <a href="${pageContext.request.contextPath}/CreateOffre">Creer une offre</a>
+            </c:if>
+            <c:choose>
+                <c:when test="${not empty sessionScope.iduser}">
+                    <a href="${pageContext.request.contextPath}/ShowOffres">Mes offres</a>
+                    <span class="account-name"><c:out value="${sessionScope.displayName}"/></span>
+                    <form method="post" action="${pageContext.request.contextPath}/LoginServlet" class="logout-form">
+                        <button type="submit" name="logout" value="1" class="button button-secondary">Se deconnecter</button>
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/signup.jsp">Creer un compte</a>
+                    <a class="button" href="${pageContext.request.contextPath}/LoginServlet">Se connecter</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</nav>

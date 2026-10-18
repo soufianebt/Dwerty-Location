@@ -86,3 +86,23 @@ and open the template in the editor.
 
 
 }
+
+body#creer_offre3-page .creer_offre3-inline-1 {
+    margin-left: 10%;
+    font-size: 17px;
+}
+
+body#creer_offre3-page .creer_offre3-inline-2 {
+    margin-left: 3%;
+    font-size: 17px;
+}
+
+body#creer_offre3-page .creer_offre3-inline-3 {
+    background-color: #1b262c;
+    margin-top: 150px;
+}
+
+body#creer_offre3-page .creer_offre3-inline-4 {
+    margin-top: -140px;
+    margin-left: 200px;
+}

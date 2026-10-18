@@ -4,41 +4,33 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="signupcss.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/site.css">
     <title>JSP SignUp</title>
 </head>
-<body>
-<div class="formlogin">
-
-    <form method="POST" action="LoginServlet">
-        <img src="img/LOGO1.png" width=128px height=128px/>
-        <h3 id="h3-seconnecter">Inscrivez-Vous</h3>
-        <input type="text" id="nom" name="nom" placeholder="Nom.." required="required"/><br>
-        <input type="text" id="prenom" name="prenom" placeholder="Prenom.." required="required"/><br>
-        <input type="number" id="telephone" name="telephone" placeholder="Telephone.." required="required"/><br>
-        <!-- comment -->
-        <input type="email" id="email" name="email" placeholder="Email.." required="required"/><br><!-- comment -->
-        <input type="password" id="password" name="password" placeholder="Mot de passe.." required="required"/><br>
-        <!-- comment -->
-        <input type="password" id="validepassword" name="validepassword" placeholder="Confirmer votre mot de passe.."
-               required="required"/><br><!-- comment -->
-        <div class="inscri-type">
-            Inscrire comme : <input type="radio" id="locataire" name="insc_type" value="Locataire">
-            <label for="locataire">Propriétaire</label>
-            <input type="radio" id="benefice" name="insc_type" value="Benefice">
-            <label for="benefice">Client</label>
-        </div>
-        <button type="submit" id="btn-connecter" name="signup">Enregistrer</button>
-
-        <c:if test="${!empty adduser}">
-
-            <p id="msg-auth" style="margin-left: 20%;color: orange;"><c:out value="${adduser}"/></p>
-
-        </c:if>
-
+<body id="signup-page" class="app-page">
+<%@include file="WEB-INF/jspf/navigation.jspf" %>
+<main class="auth-content">
+    <h1>Creer un compte</h1>
+    <c:if test="${not empty message}"><div class="notice" role="alert"><c:out value="${message}"/></div></c:if>
+    <form method="post" action="${pageContext.request.contextPath}/LoginServlet">
+        <label class="field" for="nom">Nom<input id="nom" name="nom" autocomplete="family-name" maxlength="100" required value="<c:out value='${param.nom}'/>"></label>
+        <label class="field" for="prenom">Prenom<input id="prenom" name="prenom" autocomplete="given-name" maxlength="100" required value="<c:out value='${param.prenom}'/>"></label>
+        <label class="field" for="telephone">Telephone<input type="tel" id="telephone" name="telephone" autocomplete="tel" maxlength="25" required value="<c:out value='${param.telephone}'/>"></label>
+        <label class="field" for="email">Adresse e-mail<input type="email" id="email" name="email" autocomplete="email" maxlength="200" required value="<c:out value='${param.email}'/>"></label>
+        <label class="field" for="password">Mot de passe (8 caracteres minimum)<input type="password" id="password" name="password" autocomplete="new-password" minlength="8" maxlength="72" required></label>
+        <label class="field" for="validepassword">Confirmer le mot de passe<input type="password" id="validepassword" name="validepassword" autocomplete="new-password" minlength="8" maxlength="72" required></label>
+        <fieldset>
+            <legend>Votre profil</legend>
+            <div class="role-options">
+                <label><input type="radio" name="insc_type" value="Benefice" ${param.insc_type != 'Locataire' ? 'checked' : ''} required> Client</label>
+                <label><input type="radio" name="insc_type" value="Locataire" ${param.insc_type == 'Locataire' ? 'checked' : ''}> Proprietaire</label>
+            </div>
+        </fieldset>
+        <button type="submit" name="signup" value="1">Creer mon compte</button>
     </form>
-</div>
-
-
+    <p class="auth-switch">Deja inscrit ? <a href="${pageContext.request.contextPath}/LoginServlet">Se connecter</a></p>
+</main>
+<%@include file="WEB-INF/jspf/footer.jspf" %>
 </body>
 </html>

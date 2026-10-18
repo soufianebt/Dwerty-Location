@@ -32,10 +32,14 @@ public class DetaisOffre extends HttpServlet {
         if (request.getParameter("btn_detais") != null) {
 
             // cette cookie seulemet pour refrecher la page jsp apres save de commentaire
-            response.addCookie(new Cookie("titrelogemp", request.getParameter("btn_detais")));
+            request.getSession().setAttribute("titrelogemp", request.getParameter("btn_detais"));
             //
             gestionDAO = new GestionDAO();
             List[] offreDetais = gestionDAO.getDetaisOffre(request.getParameter("btn_detais"));
+            if (offreDetais[0].isEmpty() || offreDetais[1].isEmpty()) {
+                response.sendRedirect(request.getContextPath() + "/");
+                return;
+            }
             List[] note = gestionDAO.getNotesOffre(request.getParameter("btn_detais"));
             List<NotesComts> notescomts = new ArrayList<NotesComts>();
 
@@ -45,9 +49,9 @@ public class DetaisOffre extends HttpServlet {
 
             Logement lgs = (Logement) offreDetais[0].get(0);
 
-            ImageLogement imageslg1 = (ImageLogement) offreDetais[2].get(0);
-            ImageLogement imageslg2 = (ImageLogement) offreDetais[2].get(1);
-            ImageLogement imageslg3 = (ImageLogement) offreDetais[2].get(2);
+            ImageLogement imageslg1 = offreDetais[2].isEmpty() ? com.dwirty.gestion.OffrePresentation.imageFor(offreDetais[2], lgs) : (ImageLogement) offreDetais[2].get(0);
+            ImageLogement imageslg2 = offreDetais[2].size() < 2 ? imageslg1 : (ImageLogement) offreDetais[2].get(1);
+            ImageLogement imageslg3 = offreDetais[2].size() < 3 ? imageslg1 : (ImageLogement) offreDetais[2].get(2);
 
 
             request.setAttribute("propritaire", compactuser);
@@ -80,7 +84,7 @@ public class DetaisOffre extends HttpServlet {
             }
 
             Cookie cookiess[] = request.getCookies();
-            String user = null;
+            String user = (String) request.getSession().getAttribute("iduser");
 
             if (cookiess != null) {
 
@@ -111,6 +115,10 @@ public class DetaisOffre extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        if (request.getSession().getAttribute("iduser") == null) {
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            return;
+        }
 
 
         if (request.getParameter("save_commt") != null) {
@@ -136,10 +144,13 @@ public class DetaisOffre extends HttpServlet {
                 }
             }
 
-            ev.setCIN_client_client(cin_client);
+            ev.setCIN_client_client((String) request.getSession().getAttribute("iduser"));
             gestionDAO = new GestionDAO();
             int res = gestionDAO.saveCommentaire(ev);
-            if (res == 1) {
+            if (res == 1 && request.getSession().getAttribute("titrelogemp") != null) {
+                response.sendRedirect(request.getContextPath() + "/DetaisOffre?btn_detais="
+                        + java.net.URLEncoder.encode((String) request.getSession().getAttribute("titrelogemp"), "UTF-8"));
+            } else if (res == 1) {
 
                 Cookie cookiees[] = request.getCookies();
 
